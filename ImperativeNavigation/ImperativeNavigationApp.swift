@@ -8,7 +8,9 @@ struct SampleApp: App {
         WindowGroup {
             NavigationView(
                 coordinator: coordinator,
-                root: { ViewA(coordinator: coordinator) }
+                root: {
+                    ViewA(viewModel: ViewModelA(coordinator: coordinator))
+                }
             )
         }
     }

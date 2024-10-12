@@ -1,5 +1,7 @@
 import SwiftUI
 
+// MARK: - ViewC
+
 struct ViewC: View {
     let coordinator: Coordinator
     
