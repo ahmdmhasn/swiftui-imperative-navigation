@@ -1,17 +1,15 @@
-//
-//  ImperativeNavigationApp.swift
-//  ImperativeNavigation
-//
-//  Created by Ahmed M. Hassan on 12/10/2024.
-//
-
 import SwiftUI
 
 @main
-struct ImperativeNavigationApp: App {
+struct SampleApp: App {
+    private let coordinator = DefaultCoordinator()
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationView(
+                coordinator: coordinator,
+                root: { ViewA(coordinator: coordinator) }
+            )
         }
     }
 }
