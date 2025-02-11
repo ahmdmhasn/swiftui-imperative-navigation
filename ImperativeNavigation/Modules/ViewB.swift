@@ -14,5 +14,6 @@ struct ViewB: View {
         Button("Pop to A") {
             coordinator.popLast()
         }
+        .toolbarVisibility(.hidden, for: .navigationBar)
     }
 }
