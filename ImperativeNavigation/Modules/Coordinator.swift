@@ -8,6 +8,7 @@ protocol Coordinator {
     func navigateToC()
     func dismissCThenPresentD()
     func navigateToRoot()
+    func popLast()
 }
 
 // MARK: - Default Coordinator
@@ -42,6 +43,10 @@ final class DefaultCoordinator: RoutableCoordinator {
 }
 
 extension DefaultCoordinator: Coordinator {
+    func popLast() {
+        path.remove(at: path.count - 1)
+    }
+    
     func navigateToB() {
         path.append(.viewB)
     }
