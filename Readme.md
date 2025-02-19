@@ -32,7 +32,6 @@ To run this project:
 ## Screenshots
 
 <img src="Screenshots/Sample.gif"/>
-![Demo](assets/giphy.mp4)
 
 ## Contributing
 Contributions are welcome! Feel free to open a pull request or submit issues for any bugs or suggestions.
