@@ -11,5 +11,9 @@ struct ViewB: View {
         Button("Navigate to C") {
             coordinator.navigateToC()
         }
+        Button("Pop to A") {
+            coordinator.pop()
+        }
+        .navigationBarBackButtonHidden()
     }
 }

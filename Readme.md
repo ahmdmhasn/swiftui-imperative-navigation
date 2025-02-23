@@ -31,7 +31,7 @@ To run this project:
 
 ## Screenshots
 
-<img src="Screenshots/Sample.gif"/>
+<img src="Screenshots/NewSample.gif"/>
 
 ## Contributing
 Contributions are welcome! Feel free to open a pull request or submit issues for any bugs or suggestions.
