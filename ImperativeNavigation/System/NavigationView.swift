@@ -1,18 +1,56 @@
 import SwiftUI
 
+// MARK: - Navigation Controller
+
+@MainActor
+public final class NavigationController: ObservableObject {
+    /// The current navigation path represented as an array of routes.
+    @Published fileprivate var path: [Route] = []
+
+    /// The currently active modal presentation, if any.
+    @Published fileprivate var modal: ModalRoute<Route>?
+
+    /// Pushes a new route onto the navigation path.
+    func push<V: View>(_ view: V) {
+        path.append(Route(view))
+    }
+
+    /// Removes and returns the most recently pushed route from the navigation path.
+    @discardableResult
+    func pop() -> (some View)? {
+        path.popLast()?.body
+    }
+
+    /// Removes all routes from the navigation path except for the root route.
+    func popToRoot() {
+        path.removeAll() // Path excludes the root view
+    }
+
+    /// Presents a modal route.
+    func present<V: View>(_ view: V) {
+        modal = .fullScreen(Route(view))
+    }
+
+    /// Presents a modal route.
+    func sheet<V: View>(_ view: V) {
+        modal = .sheet(Route(view))
+    }
+
+    /// Dismisses the currently presented modal route, if any.
+    func dismiss() {
+        modal = nil
+    }
+}
+
 // MARK: - Navigation View
 
 /// A generic `NavigationView` that handles navigation and modal presentations
 /// using a coordinator pattern. It utilizes a `NavigationStack` for navigation and
 /// supports both `fullScreenCover` and `sheet` modals.
-struct NavigationView<
-    Coordinator: RoutableCoordinator,
-    Root: View
->: View {
+struct NavigationView<Root: View>: View {
     @StateObject
-    private var coordinator: Coordinator
-    @ViewBuilder
-    private let root: () -> Root
+    private var controller: NavigationController
+    private let root: Root
 
     /// Initializes the `NavigationView` with a coordinator and a root view.
     ///
@@ -20,36 +58,73 @@ struct NavigationView<
     ///   - coordinator: A `RoutableCoordinator` that manages the navigation flow.
     ///   - root: A closure that returns the root view of the navigation stack.
     init(
-        coordinator: Coordinator,
-        root: @escaping () -> Root
+        controller: NavigationController,
+        @ViewBuilder root: () -> Root
     ) {
-        self._coordinator = StateObject(wrappedValue: coordinator)
-        self.root = root
+        self._controller = StateObject(wrappedValue: controller)
+        self.root = root()
     }
 
     var body: some View {
         NavigationStack(
-            path: $coordinator.path,
+            path: $controller.path,
             root: {
-                root()
-                    .navigationDestination(for: Coordinator.Route.self) { route in
-                        coordinator.view(for: route)
-                    }
+                root
+                    .navigationDestination(for: Route.self, destination: \.body)
                     .fullScreenCover(
                         item: Binding(
-                            get: { coordinator.modal?.asFullScreen() },
-                            set: { coordinator.modal = $0 }
+                            get: { controller.modal?.asFullScreen() },
+                            set: { controller.modal = $0 }
                         ),
-                        content: { modal in coordinator.view(for: modal.route) }
+                        content: \.route.body
                     )
                     .sheet(
                         item: Binding(
-                            get: { coordinator.modal?.asSheet() },
-                            set: { coordinator.modal = $0 }
+                            get: { controller.modal?.asSheet() },
+                            set: { controller.modal = $0 }
                         ),
-                        content: { modal in coordinator.view(for: modal.route) }
+                        content: \.route.body
                     )
             }
         )
     }
+}
+
+// MARK: - Route
+
+private struct Route: View {
+    @MainActor
+    var body: some View {
+        AnyView(erasing: view)
+    }
+
+    init<V: View>(_ view: V) {
+        self.view = view
+        self.viewType = String(describing: V.self)
+        self.identifier = UUID()
+    }
+
+    @ViewBuilder
+    private let view: any View
+    private let viewType: String
+    private let identifier: UUID
+}
+
+// MARK: Route + Hashable Conformance
+
+extension Route: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(viewType)
+        hasher.combine(identifier)
+    }
+
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        lhs.viewType == rhs.viewType && lhs.identifier == rhs.identifier
+    }
+}
+
+// MARK: Route + Hashable Conformance
+
+extension Route: Identifiable {
+    var id: Int { hashValue }
 }

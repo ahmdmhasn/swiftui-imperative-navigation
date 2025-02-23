@@ -1,9 +1,16 @@
 import SwiftUI
 
+// MARK: - Coordinator C
+
+@MainActor
+protocol CoordinatorC {
+    func dismissCThenPresentD()
+}
+
 // MARK: - ViewC
 
 struct ViewC: View {
-    let coordinator: Coordinator
+    let coordinator: CoordinatorC
     
     @State
     private var countdown: Int = 2
