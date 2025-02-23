@@ -15,10 +15,16 @@ public final class NavigationController: ObservableObject {
         path.append(Route(view))
     }
 
+    /// Removes the most recently pushed route from the navigation path.
+    func pop() {
+        _ = path.popLast()
+    }
+
     /// Removes and returns the most recently pushed route from the navigation path.
-    @discardableResult
-    func pop() -> (some View)? {
-        path.popLast()?.body
+    ///
+    /// Note: Overloaded version of `pop()` which avoids "Generic parameter 'V' could not be inferred" error.
+    func pop<V: View>() -> V? {
+        path.popLast()?.view as? V
     }
 
     /// Removes all routes from the navigation path except for the root route.
@@ -104,10 +110,9 @@ private struct Route: View {
         self.identifier = UUID()
     }
 
-    @ViewBuilder
-    private let view: any View
-    private let viewType: String
-    private let identifier: UUID
+    let view: any View
+    let viewType: String
+    let identifier: UUID
 }
 
 // MARK: Route + Hashable Conformance
