@@ -61,7 +61,7 @@ struct NavigationView<Root: View>: View {
     /// Initializes the `NavigationView` with a coordinator and a root view.
     ///
     /// - Parameters:
-    ///   - coordinator: A `RoutableCoordinator` that manages the navigation flow.
+    ///   - controller: A `NavigationController` that manages the navigation flow.
     ///   - root: A closure that returns the root view of the navigation stack.
     init(
         controller: NavigationController,
