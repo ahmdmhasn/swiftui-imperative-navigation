@@ -29,10 +29,14 @@ extension DefaultCoordinator: Coordinator {
     
     /// Presents `ViewC` in a modal sheet and handles dismissal logic.
     func navigateToC() {
-        let coordinatorC = DefaultCoordinatorC { [weak self] in
-            self?.handlePostDismissalActions()
+        var coordinatorC: DefaultCoordinatorC?
+        coordinatorC = DefaultCoordinatorC { [weak self] in
+            self?.navigationController.dismiss()
+            self?.presentDThenE()
+            coordinatorC = nil
         }
-        coordinatorC.start(from: navigationController)
+
+        coordinatorC?.start(from: navigationController)
     }
     
     /// Pops back to the root view in the navigation stack.
@@ -43,10 +47,8 @@ extension DefaultCoordinator: Coordinator {
     // MARK: - Private Methods
     
     /// Handles sequential navigation steps after `ViewC` is dismissed.
-    private func handlePostDismissalActions() {
+    private func presentDThenE() {
         Task {
-            navigationController.dismiss()
-            
             // Simulating delay to mimic user interaction or processing time.
             try? await Task.sleep(for: .seconds(1))
             
