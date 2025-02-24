@@ -1,41 +1,120 @@
-# SwiftUI Imperative Navigation Sample
+# SwiftUI Imperative Navigation
 
-This project demonstrates how to implement **imperative navigation** in SwiftUI using a **coordinator pattern**. This approach aims to separate the navigation logic from the view layer, making it easier to manage, maintain, and test complex navigation flows.
+A modern approach to handling navigation in SwiftUI using an imperative style. This method simplifies view logic by extracting navigation concerns, improving testability, and making the codebase more maintainable.
 
 Medium Article: [Link](https://medium.com/@ahmdmhasn/mastering-imperative-navigation-in-swiftui-with-a-coordinator-pattern-8a7e034b242d)
 
-## Features
+## 📌 Why Imperative Navigation?
+While SwiftUI promotes declarative navigation with `NavigationStack` and `NavigationLink`, complex navigation flows can become difficult to manage. Imperative navigation allows:
+- **Decoupling navigation logic** from views.
+- **Better testability** by moving navigation handling to a dedicated coordinator.
+- **Improved maintainability** by centralizing navigation in a single source of truth.
 
-- **Decoupled Navigation Logic**: Navigation logic is managed by a `Coordinator`, reducing the complexity of views.
-- **Improved Testability**: By extracting navigation logic into a separate component, you can write tests for navigation flows without involving the UI layer.
-- **Support for Modals**: Handles both sheet and full-screen modals using a custom `ModalRoute` enum.
-- **Clean and Maintainable Code**: Uses SwiftUI's `NavigationStack` for a seamless and modern navigation experience.
+## 🚀 Features
+- Navigation managed outside of views.
+- Supports deep linking and complex navigation flows.
+- Clean and structured architecture using a navigation coordinator.
 
-## How It Works
+## 🏞️ Screenshot
 
-1. **Coordinator Pattern**: The `DefaultCoordinator` manages all navigation actions. It defines routes (`viewB`, `viewC`, `viewD`) and maps them to the appropriate SwiftUI views.
-2. **Custom Navigation View**: A custom `NavigationView` is used to integrate the coordinator with a `NavigationStack`, allowing for imperative-style navigation.
-3. **Modals Management**: Uses `ModalRoute` to manage presentation of views as sheets or full-screen covers.
+<img src="Screenshots/Sample.gif"/>
 
-## Usage
+## 🛠 Setup
+### Requirements
+- iOS 16.0+
+- Xcode 15+
+- Swift 5.9+
 
-To run this project:
+### Installation
+Clone the repository:
+```sh
+git clone https://github.com/ahmdmhasn/swiftui-imperative-navigation.git
+cd swiftui-imperative-navigation
+```
+Open `SwiftUIImperativeNavigation.xcodeproj` in Xcode and run the sample project.
 
-1. Clone the repository:
-    ```bash
-    git clone https://github.com/your-username/SwiftUI-Imperative-Navigation.git
-    ```
+## 📖 Components
+### NavigationView
+The `NavigationCoordinator` acts as the central controller for handling navigation events.
 
-2. Open the .xcodeproj file in Xcode.
-3. Build and run the project on the simulator or your device.
+```swift
+@MainActor
+public final class NavigationController: ObservableObject {
+    func push<V: View>(_ view: V)
 
-## Screenshots
+    func pop()
 
-<img src="Screenshots/NewSample.gif"/>
+    func popToRoot()
 
-## Contributing
-Contributions are welcome! Feel free to open a pull request or submit issues for any bugs or suggestions.
+    func present<V: View>(_ view: V)
 
-## License
-This project is licensed under the [MIT License](https://opensource.org/license/mit).
+    func sheet<V: View>(_ view: V)
 
+    func dismiss()
+}
+```
+
+### NavigationView
+The `NavigationView` works with the `NavigationController`.
+
+```swift
+struct NavigationView<Root: View>: View {
+    ...
+
+    var body: some View {
+        NavigationStack(path: $controller.path) {
+            root
+                .navigationDestination(for: Route.self, destination: \.body)
+                .fullScreenCover(item: $controller.modal, content: \.route.body)
+                .sheet(item: $controller.modal, content: \.route.body)
+        }
+    }
+}
+```
+
+## 📖 Usage
+```swift
+@MainActor
+final class DefaultCoordinator {
+    let navigationController = NavigationController()
+
+    func navigateToB() {
+        navigationController.push(ViewB(coordinator: self)) // Push SwiftUI.View
+    }
+
+    func navigateToC() {
+        let coordinatorC = DefaultCoordinatorC { [weak self] in
+            self?.navigationController.dismiss() // Dismiss presented modal
+        }
+
+        coordinatorC.start(from: navigationController) // Present coordinator
+    }
+}
+```
+
+### 3️2️⃣  Navigate Imperatively
+```swift
+struct HomeView: View {
+    let coordinator: Coordinator
+    
+    var body: some View {
+        Button("Go to Details") {
+            coordinator.navigateToB()
+        }
+    }
+}
+```
+
+## 🏗 Future Improvements
+- Add unit tests for navigation logic.
+- Extend examples for more navigation patterns (modals, tab-based navigation).
+- Provide better state persistence handling.
+
+## 🤝 Contributing
+Contributions are welcome! Feel free to open an issue or submit a pull request.
+
+## 📜 License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## 🌟 Support
+If you find this project helpful, give it a ⭐ on GitHub!
