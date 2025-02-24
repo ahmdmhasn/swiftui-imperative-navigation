@@ -34,4 +34,4 @@ jobs:
       - name: Select Xcode Version
         run: sudo xcode-select --switch /Applications/Xcode_16.app/Contents/Developer
       - name: Build Package Integration
-        run: pushd Example; xcrun xcodebuild test -scheme ImperativeNavigationExample -destination "platform=iOS Simulator,name=iPhone 16"; popd
+        run: xcrun xcodebuild build -scheme ImperativeNavigationExample -configuration Release -project Example/ImperativeNavigationExample.xcodeproj -destination 'platform=iOS Simulator,OS=18.2,name=iPad (10th generation)'
