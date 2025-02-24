@@ -6,7 +6,7 @@ on:
 
 jobs:
   build-xcode-16:
-    name: Build with xcodebuild on Xcode 16
+    name: Build with xcodebuild on Xcode 16.1
     runs-on: macos-14
     strategy:
       matrix:
@@ -21,18 +21,18 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v4
       - name: Select Xcode Version
-        run: sudo xcode-select --switch /Applications/Xcode_16.app/Contents/Developer
+        run: sudo xcode-select --switch /Applications/Xcode_16.1.app/Contents/Developer
       - name: Build Framework
         run: xcrun xcodebuild build -scheme ImperativeNavigation -skipUnavailableActions -destination ${{ matrix.platforms }}
 
   test-example-project-16:
-    name: Build Package Integration on Xcode 16
+    name: Build Package Integration on Xcode 16.1
     runs-on: macos-14
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
       - name: Select Xcode Version
-        run: sudo xcode-select --switch /Applications/Xcode_16.app/Contents/Developer
+        run: sudo xcode-select --switch /Applications/Xcode_16.1.app/Contents/Developer
       - name: Build Package Integration
         run: |
           cd Example
