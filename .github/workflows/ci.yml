@@ -34,6 +34,4 @@ jobs:
       - name: Select Xcode Version
         run: sudo xcode-select --switch /Applications/Xcode_16.app/Contents/Developer
       - name: Build Package Integration
-        run: |
-          cd Example
-          xcodebuild test -skipPackagePluginValidation -skipMacroValidation -scheme ImperativeNavigationExample -destination "platform=iOS Simulator,name=iPhone 16"
+        run: pushd Example; xcodebuild test -scheme ImperativeNavigationExample -destination "platform=iOS Simulator,name=iPhone 16"; popd
