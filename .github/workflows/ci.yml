@@ -36,5 +36,4 @@ jobs:
       - name: Build Package Integration
         run: |
           cd Example
-          xcodebuild -resolvePackageDependencies
           xcodebuild test -destination "platform=iOS Simulator,name=iPhone 16"
