@@ -27,7 +27,7 @@ jobs:
 
   test-example-project-16:
     name: Build Package Integration on Xcode 16
-    runs-on: macos-14
+    runs-on: macos-15
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
