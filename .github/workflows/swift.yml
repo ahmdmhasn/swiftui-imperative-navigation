@@ -27,4 +27,4 @@ jobs:
       - name: Select Xcode Version
         run: sudo xcode-select --switch /Applications/Xcode_16.2.app/Contents/Developer
       - name: Build Framework
-        run: xcrun xcodebuild build -destination ${{ matrix.platforms }}
+        run: xcrun xcodebuild build -scheme ImperativeNavigation -destination ${{ matrix.platforms }}
