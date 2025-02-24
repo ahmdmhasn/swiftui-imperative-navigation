@@ -25,19 +25,9 @@
 		026E0DED2CBAA8D100FD1E07 /* ImperativeNavigationExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImperativeNavigationExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		025486152D6CF0AC00F93F42 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				ViewModelATests.swift,
-			);
-			target = 026E0DDC2CBAA8CF00FD1E07 /* ImperativeNavigationExample */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		025485F82D6CF06300F93F42 /* ImperativeNavigationExample */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ImperativeNavigationExample; sourceTree = "<group>"; };
-		025485FA2D6CF06300F93F42 /* ImperativeNavigationExampleTests */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (025486152D6CF0AC00F93F42 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = ImperativeNavigationExampleTests; sourceTree = "<group>"; };
+		025485FA2D6CF06300F93F42 /* ImperativeNavigationExampleTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ImperativeNavigationExampleTests; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,7 +84,6 @@
 			);
 			fileSystemSynchronizedGroups = (
 				025485F82D6CF06300F93F42 /* ImperativeNavigationExample */,
-				025485FA2D6CF06300F93F42 /* ImperativeNavigationExampleTests */,
 			);
 			name = ImperativeNavigationExample;
 			packageProductDependencies = (
@@ -118,7 +107,6 @@
 				026E0DEF2CBAA8D100FD1E07 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				025485F82D6CF06300F93F42 /* ImperativeNavigationExample */,
 				025485FA2D6CF06300F93F42 /* ImperativeNavigationExampleTests */,
 			);
 			name = ImperativeNavigationExampleTests;

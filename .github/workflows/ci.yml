@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main  
+  pull_request:
+
+jobs:
+  build-xcode-16:
+    name: Build with xcodebuild on Xcode 16
+    runs-on: macos-15
+    strategy:
+      matrix:
+        platforms: [
+          'generic/platform=ios',
+          'generic/platform=tvos',
+          'generic/platform=watchos',
+          'generic/platform=visionos'
+        ]
+      fail-fast: false
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+      - name: Select Xcode Version
+        run: sudo xcode-select --switch /Applications/Xcode_16.app/Contents/Developer
+      - name: Build Framework
+        run: xcrun xcodebuild build -scheme ImperativeNavigation -destination ${{ matrix.platforms }}
