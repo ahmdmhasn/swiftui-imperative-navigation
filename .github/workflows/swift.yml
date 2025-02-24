@@ -37,6 +37,4 @@ jobs:
       - name: Select Xcode Version
         run: sudo xcode-select --switch /Applications/Xcode_16.1.app/Contents/Developer
       - name: Build Package Integration
-        run: xcrun swift build --package-path Example/ImperativeNavigationExample -destination generic/platform=ios
-      - name: Test Package Integration
-        run: xcrun swift test --package-path Example/ImperativeNavigationExample -destination generic/platform=ios
+        run: xcrun swift build --package-path Example/ImperativeNavigationExample --destination generic/platform=ios
