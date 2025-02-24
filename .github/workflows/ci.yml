@@ -36,4 +36,4 @@ jobs:
       - name: Build Package Integration
         run: |
           cd Example
-          xcodebuild test -scheme ImperativeNavigationExample -destination "platform=iOS Simulator,name=iPhone 16"
+          xcodebuild test -skipPackagePluginValidation -skipMacroValidation -scheme ImperativeNavigationExample -destination "platform=iOS Simulator,name=iPhone 16"
