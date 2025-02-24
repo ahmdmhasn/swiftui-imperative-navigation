@@ -4,48 +4,50 @@ import SwiftUI
 
 @MainActor
 public final class NavigationController: ObservableObject {
-    /// The current navigation path represented as an array of routes.
-    @Published fileprivate var path: [Route] = []
-
-    /// The currently active modal presentation, if any.
-    @Published fileprivate var modal: ModalRoute<Route>?
+    public init() { }
 
     /// Pushes a new route onto the navigation path.
-    func push<V: View>(_ view: V) {
+    public func push<V: View>(_ view: V) {
         path.append(Route(view))
     }
 
     /// Removes the most recently pushed route from the navigation path.
-    func pop() {
+    public func pop() {
         _ = path.popLast()
     }
 
     /// Removes and returns the most recently pushed route from the navigation path.
     ///
     /// Note: Overloaded version of `pop()` which avoids "Generic parameter 'V' could not be inferred" error.
-    func pop<V: View>() -> V? {
+    public func pop<V: View>() -> V? {
         path.popLast()?.view as? V
     }
 
     /// Removes all routes from the navigation path except for the root route.
-    func popToRoot() {
+    public func popToRoot() {
         path.removeAll() // Path excludes the root view
     }
 
     /// Presents a modal route.
-    func present<V: View>(_ view: V) {
+    public func present<V: View>(_ view: V) {
         modal = .fullScreen(Route(view))
     }
 
     /// Presents a modal route.
-    func sheet<V: View>(_ view: V) {
+    public func sheet<V: View>(_ view: V) {
         modal = .sheet(Route(view))
     }
 
     /// Dismisses the currently presented modal route, if any.
-    func dismiss() {
+    public func dismiss() {
         modal = nil
     }
+
+    /// The current navigation path represented as an array of routes.
+    @Published fileprivate var path: [Route] = []
+
+    /// The currently active modal presentation, if any.
+    @Published fileprivate var modal: ModalRoute<Route>?
 }
 
 // MARK: - Navigation View
@@ -53,7 +55,7 @@ public final class NavigationController: ObservableObject {
 /// A generic `NavigationView` that handles navigation and modal presentations
 /// using a coordinator pattern. It utilizes a `NavigationStack` for navigation and
 /// supports both `fullScreenCover` and `sheet` modals.
-struct NavigationView<Root: View>: View {
+public struct NavigationView<Root: View>: View {
     @StateObject
     private var controller: NavigationController
     private let root: Root
@@ -63,7 +65,7 @@ struct NavigationView<Root: View>: View {
     /// - Parameters:
     ///   - controller: A `NavigationController` that manages the navigation flow.
     ///   - root: A closure that returns the root view of the navigation stack.
-    init(
+    public init(
         controller: NavigationController,
         @ViewBuilder root: () -> Root
     ) {
@@ -71,7 +73,7 @@ struct NavigationView<Root: View>: View {
         self.root = root()
     }
 
-    var body: some View {
+    public var body: some View {
         NavigationStack(
             path: $controller.path,
             root: {
@@ -117,7 +119,7 @@ private struct Route: View {
 
 // MARK: Route + Hashable Conformance
 
-extension Route: Hashable {
+extension Route: @preconcurrency Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(viewType)
         hasher.combine(identifier)
@@ -130,6 +132,6 @@ extension Route: Hashable {
 
 // MARK: Route + Hashable Conformance
 
-extension Route: Identifiable {
+extension Route: @preconcurrency Identifiable {
     var id: Int { hashValue }
 }

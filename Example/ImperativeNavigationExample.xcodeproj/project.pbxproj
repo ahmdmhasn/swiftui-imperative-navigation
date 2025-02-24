@@ -6,6 +6,10 @@
 	objectVersion = 70;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		025486182D6CF17700F93F42 /* ImperativeNavigation in Frameworks */ = {isa = PBXBuildFile; productRef = 025486172D6CF17700F93F42 /* ImperativeNavigation */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		026E0DEE2CBAA8D100FD1E07 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -41,6 +45,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				025486182D6CF17700F93F42 /* ImperativeNavigation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,6 +98,7 @@
 			);
 			name = ImperativeNavigationExample;
 			packageProductDependencies = (
+				025486172D6CF17700F93F42 /* ImperativeNavigation */,
 			);
 			productName = ImperativeNavigation;
 			productReference = 026E0DDD2CBAA8CF00FD1E07 /* ImperativeNavigationExample.app */;
@@ -150,6 +156,9 @@
 				Base,
 			);
 			mainGroup = 026E0DD42CBAA8CF00FD1E07;
+			packageReferences = (
+				025486162D6CF17700F93F42 /* XCLocalSwiftPackageReference "../../ImperativeNavigation" */,
+			);
 			productRefGroup = 026E0DDE2CBAA8CF00FD1E07 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -449,6 +458,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		025486162D6CF17700F93F42 /* XCLocalSwiftPackageReference "../../ImperativeNavigation" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../../ImperativeNavigation;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		025486172D6CF17700F93F42 /* ImperativeNavigation */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ImperativeNavigation;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 026E0DD52CBAA8CF00FD1E07 /* Project object */;
 }

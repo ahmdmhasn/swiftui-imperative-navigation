@@ -1,3 +1,5 @@
+import ImperativeNavigation
+
 // MARK: - Coordinator Protocol
 
 /// Defines navigation methods to transition between views.

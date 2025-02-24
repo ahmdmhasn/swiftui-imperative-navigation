@@ -1,3 +1,4 @@
+import ImperativeNavigation
 import SwiftUI
 
 @main
