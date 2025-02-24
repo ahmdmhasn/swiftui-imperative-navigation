@@ -1,3 +1,5 @@
+import ImperativeNavigation
+
 // MARK: - Coordinator for ViewC
 
 @MainActor
