@@ -1,4 +1,4 @@
-@testable import ImperativeNavigation
+@testable import ImperativeNavigationExample
 import Testing
 
 @MainActor
@@ -27,6 +27,11 @@ struct ViewModelATests {
 // MARK: CoordinatorMock
 
 final class CoordinatorMock: Coordinator {
+    private(set) var popCallCount: Int = .zero
+    func pop() {
+        popCallCount += 1
+    }
+    
     private(set) var navigateToBCallCount: Int = .zero
     func navigateToB() {
         navigateToBCallCount += 1

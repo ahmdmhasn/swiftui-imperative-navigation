@@ -14,25 +14,26 @@
 			remoteGlobalIDString = 026E0DDC2CBAA8CF00FD1E07;
 			remoteInfo = ImperativeNavigation;
 		};
-		026E0DF82CBAA8D100FD1E07 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 026E0DD52CBAA8CF00FD1E07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 026E0DDC2CBAA8CF00FD1E07;
-			remoteInfo = ImperativeNavigation;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		026E0DDD2CBAA8CF00FD1E07 /* ImperativeNavigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImperativeNavigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		026E0DED2CBAA8D100FD1E07 /* ImperativeNavigationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImperativeNavigationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		026E0DF72CBAA8D100FD1E07 /* ImperativeNavigationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImperativeNavigationUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		026E0DDD2CBAA8CF00FD1E07 /* ImperativeNavigationExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImperativeNavigationExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		026E0DED2CBAA8D100FD1E07 /* ImperativeNavigationExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImperativeNavigationExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		025486152D6CF0AC00F93F42 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				ViewModelATests.swift,
+			);
+			target = 026E0DDC2CBAA8CF00FD1E07 /* ImperativeNavigationExample */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		026E0DDF2CBAA8CF00FD1E07 /* ImperativeNavigation */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ImperativeNavigation; sourceTree = "<group>"; };
-		026E0DF02CBAA8D100FD1E07 /* ImperativeNavigationTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ImperativeNavigationTests; sourceTree = "<group>"; };
-		026E0DFA2CBAA8D100FD1E07 /* ImperativeNavigationUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ImperativeNavigationUITests; sourceTree = "<group>"; };
+		025485F82D6CF06300F93F42 /* ImperativeNavigationExample */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ImperativeNavigationExample; sourceTree = "<group>"; };
+		025485FA2D6CF06300F93F42 /* ImperativeNavigationExampleTests */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (025486152D6CF0AC00F93F42 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = ImperativeNavigationExampleTests; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,22 +51,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		026E0DF42CBAA8D100FD1E07 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		026E0DD42CBAA8CF00FD1E07 = {
 			isa = PBXGroup;
 			children = (
-				026E0DDF2CBAA8CF00FD1E07 /* ImperativeNavigation */,
-				026E0DF02CBAA8D100FD1E07 /* ImperativeNavigationTests */,
-				026E0DFA2CBAA8D100FD1E07 /* ImperativeNavigationUITests */,
+				025485F82D6CF06300F93F42 /* ImperativeNavigationExample */,
+				025485FA2D6CF06300F93F42 /* ImperativeNavigationExampleTests */,
 				026E0DDE2CBAA8CF00FD1E07 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -73,9 +66,8 @@
 		026E0DDE2CBAA8CF00FD1E07 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				026E0DDD2CBAA8CF00FD1E07 /* ImperativeNavigation.app */,
-				026E0DED2CBAA8D100FD1E07 /* ImperativeNavigationTests.xctest */,
-				026E0DF72CBAA8D100FD1E07 /* ImperativeNavigationUITests.xctest */,
+				026E0DDD2CBAA8CF00FD1E07 /* ImperativeNavigationExample.app */,
+				026E0DED2CBAA8D100FD1E07 /* ImperativeNavigationExampleTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -83,9 +75,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		026E0DDC2CBAA8CF00FD1E07 /* ImperativeNavigation */ = {
+		026E0DDC2CBAA8CF00FD1E07 /* ImperativeNavigationExample */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 026E0E012CBAA8D100FD1E07 /* Build configuration list for PBXNativeTarget "ImperativeNavigation" */;
+			buildConfigurationList = 026E0E012CBAA8D100FD1E07 /* Build configuration list for PBXNativeTarget "ImperativeNavigationExample" */;
 			buildPhases = (
 				026E0DD92CBAA8CF00FD1E07 /* Sources */,
 				026E0DDA2CBAA8CF00FD1E07 /* Frameworks */,
@@ -96,18 +88,19 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				026E0DDF2CBAA8CF00FD1E07 /* ImperativeNavigation */,
+				025485F82D6CF06300F93F42 /* ImperativeNavigationExample */,
+				025485FA2D6CF06300F93F42 /* ImperativeNavigationExampleTests */,
 			);
-			name = ImperativeNavigation;
+			name = ImperativeNavigationExample;
 			packageProductDependencies = (
 			);
 			productName = ImperativeNavigation;
-			productReference = 026E0DDD2CBAA8CF00FD1E07 /* ImperativeNavigation.app */;
+			productReference = 026E0DDD2CBAA8CF00FD1E07 /* ImperativeNavigationExample.app */;
 			productType = "com.apple.product-type.application";
 		};
-		026E0DEC2CBAA8D100FD1E07 /* ImperativeNavigationTests */ = {
+		026E0DEC2CBAA8D100FD1E07 /* ImperativeNavigationExampleTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 026E0E042CBAA8D100FD1E07 /* Build configuration list for PBXNativeTarget "ImperativeNavigationTests" */;
+			buildConfigurationList = 026E0E042CBAA8D100FD1E07 /* Build configuration list for PBXNativeTarget "ImperativeNavigationExampleTests" */;
 			buildPhases = (
 				026E0DE92CBAA8D100FD1E07 /* Sources */,
 				026E0DEA2CBAA8D100FD1E07 /* Frameworks */,
@@ -119,37 +112,15 @@
 				026E0DEF2CBAA8D100FD1E07 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				026E0DF02CBAA8D100FD1E07 /* ImperativeNavigationTests */,
+				025485F82D6CF06300F93F42 /* ImperativeNavigationExample */,
+				025485FA2D6CF06300F93F42 /* ImperativeNavigationExampleTests */,
 			);
-			name = ImperativeNavigationTests;
+			name = ImperativeNavigationExampleTests;
 			packageProductDependencies = (
 			);
 			productName = ImperativeNavigationTests;
-			productReference = 026E0DED2CBAA8D100FD1E07 /* ImperativeNavigationTests.xctest */;
+			productReference = 026E0DED2CBAA8D100FD1E07 /* ImperativeNavigationExampleTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		026E0DF62CBAA8D100FD1E07 /* ImperativeNavigationUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 026E0E072CBAA8D100FD1E07 /* Build configuration list for PBXNativeTarget "ImperativeNavigationUITests" */;
-			buildPhases = (
-				026E0DF32CBAA8D100FD1E07 /* Sources */,
-				026E0DF42CBAA8D100FD1E07 /* Frameworks */,
-				026E0DF52CBAA8D100FD1E07 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				026E0DF92CBAA8D100FD1E07 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				026E0DFA2CBAA8D100FD1E07 /* ImperativeNavigationUITests */,
-			);
-			name = ImperativeNavigationUITests;
-			packageProductDependencies = (
-			);
-			productName = ImperativeNavigationUITests;
-			productReference = 026E0DF72CBAA8D100FD1E07 /* ImperativeNavigationUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
@@ -168,13 +139,9 @@
 						CreatedOnToolsVersion = 16.0;
 						TestTargetID = 026E0DDC2CBAA8CF00FD1E07;
 					};
-					026E0DF62CBAA8D100FD1E07 = {
-						CreatedOnToolsVersion = 16.0;
-						TestTargetID = 026E0DDC2CBAA8CF00FD1E07;
-					};
 				};
 			};
-			buildConfigurationList = 026E0DD82CBAA8CF00FD1E07 /* Build configuration list for PBXProject "ImperativeNavigation" */;
+			buildConfigurationList = 026E0DD82CBAA8CF00FD1E07 /* Build configuration list for PBXProject "ImperativeNavigationExample" */;
 			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -187,9 +154,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				026E0DDC2CBAA8CF00FD1E07 /* ImperativeNavigation */,
-				026E0DEC2CBAA8D100FD1E07 /* ImperativeNavigationTests */,
-				026E0DF62CBAA8D100FD1E07 /* ImperativeNavigationUITests */,
+				026E0DDC2CBAA8CF00FD1E07 /* ImperativeNavigationExample */,
+				026E0DEC2CBAA8D100FD1E07 /* ImperativeNavigationExampleTests */,
 			);
 		};
 /* End PBXProject section */
@@ -203,13 +169,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		026E0DEB2CBAA8D100FD1E07 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		026E0DF52CBAA8D100FD1E07 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -233,25 +192,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		026E0DF32CBAA8D100FD1E07 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
 		026E0DEF2CBAA8D100FD1E07 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 026E0DDC2CBAA8CF00FD1E07 /* ImperativeNavigation */;
+			target = 026E0DDC2CBAA8CF00FD1E07 /* ImperativeNavigationExample */;
 			targetProxy = 026E0DEE2CBAA8D100FD1E07 /* PBXContainerItemProxy */;
-		};
-		026E0DF92CBAA8D100FD1E07 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 026E0DDC2CBAA8CF00FD1E07 /* ImperativeNavigation */;
-			targetProxy = 026E0DF82CBAA8D100FD1E07 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -382,7 +329,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"ImperativeNavigation/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"ImperativeNavigationExample/Preview Content\"";
 				DEVELOPMENT_TEAM = JUUZV79G5F;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -411,7 +358,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"ImperativeNavigation/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"ImperativeNavigationExample/Preview Content\"";
 				DEVELOPMENT_TEAM = JUUZV79G5F;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -448,7 +395,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ImperativeNavigation.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ImperativeNavigation";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ImperativeNavigationExample.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ImperativeNavigationExample";
 			};
 			name = Debug;
 		};
@@ -467,48 +414,14 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ImperativeNavigation.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ImperativeNavigation";
-			};
-			name = Release;
-		};
-		026E0E082CBAA8D100FD1E07 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = JUUZV79G5F;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ahmdmhasn.ImperativeNavigationUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = ImperativeNavigation;
-			};
-			name = Debug;
-		};
-		026E0E092CBAA8D100FD1E07 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = JUUZV79G5F;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ahmdmhasn.ImperativeNavigationUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = ImperativeNavigation;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ImperativeNavigationExample.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ImperativeNavigationExample";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		026E0DD82CBAA8CF00FD1E07 /* Build configuration list for PBXProject "ImperativeNavigation" */ = {
+		026E0DD82CBAA8CF00FD1E07 /* Build configuration list for PBXProject "ImperativeNavigationExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				026E0DFF2CBAA8D100FD1E07 /* Debug */,
@@ -517,7 +430,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		026E0E012CBAA8D100FD1E07 /* Build configuration list for PBXNativeTarget "ImperativeNavigation" */ = {
+		026E0E012CBAA8D100FD1E07 /* Build configuration list for PBXNativeTarget "ImperativeNavigationExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				026E0E022CBAA8D100FD1E07 /* Debug */,
@@ -526,20 +439,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		026E0E042CBAA8D100FD1E07 /* Build configuration list for PBXNativeTarget "ImperativeNavigationTests" */ = {
+		026E0E042CBAA8D100FD1E07 /* Build configuration list for PBXNativeTarget "ImperativeNavigationExampleTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				026E0E052CBAA8D100FD1E07 /* Debug */,
 				026E0E062CBAA8D100FD1E07 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		026E0E072CBAA8D100FD1E07 /* Build configuration list for PBXNativeTarget "ImperativeNavigationUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				026E0E082CBAA8D100FD1E07 /* Debug */,
-				026E0E092CBAA8D100FD1E07 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
