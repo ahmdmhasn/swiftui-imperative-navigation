@@ -9,7 +9,7 @@ on:
 
 jobs:
   xcodebuild-16:
-    name: Build with xcodebuild on Xcode 16.2
+    name: Build with xcodebuild on Xcode 16.1
     runs-on: macos-14
     strategy:
       matrix:
@@ -24,6 +24,6 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v4
       - name: Select Xcode Version
-        run: sudo xcode-select --switch /Applications/Xcode_16.2.app/Contents/Developer
+        run: sudo xcode-select --switch /Applications/Xcode_16.1.app/Contents/Developer
       - name: Build Framework
         run: xcrun xcodebuild build -scheme ImperativeNavigation -destination ${{ matrix.platforms }}
