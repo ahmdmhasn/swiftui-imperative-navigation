@@ -7,7 +7,7 @@ struct SampleApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView(
-                coordinator: coordinator,
+                controller: coordinator.navigationController,
                 root: {
                     ViewA(viewModel: ViewModelA(coordinator: coordinator))
                 }

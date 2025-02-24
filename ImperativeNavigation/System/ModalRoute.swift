@@ -3,7 +3,7 @@
 /// An enum that manages different modal presentation styles, such as `fullScreen` and `sheet`.
 /// It conforms to `Hashable` and `Identifiable`, allowing it to be used in SwiftUI's `sheet`
 /// and `fullScreenCover` presentations.
-enum ModalRoute<Route: Hashable>: Hashable {
+enum ModalRoute<Route> {
     case fullScreen(Route)
     case sheet(Route)
 
@@ -38,10 +38,17 @@ enum ModalRoute<Route: Hashable>: Hashable {
     }
 }
 
-// MARK: - Identifiable Conformance
+// MARK: ModalRoute + Identifiable Conformance
 
-extension ModalRoute: Identifiable {
-    var id: Int { hashValue }
+extension ModalRoute: Identifiable where Route: Identifiable {
+    var id: Route.ID {
+        switch self {
+        case let .fullScreen(route):
+            route.id
+        case let .sheet(route):
+            route.id
+        }
+    }
 }
 
 // MARK: - Optional <> ModalRoute Accessories
@@ -51,12 +58,12 @@ extension Optional {
     mutating func dismiss<T: Hashable>() where Wrapped == ModalRoute<T> {
         self = nil
     }
-    
+
     /// Presents a `fullScreen` modal with the given route.
     mutating func presentFullScreen<T: Hashable>(_ route: T) where Wrapped == ModalRoute<T> {
         self = .fullScreen(route)
     }
-    
+
     /// Presents a `sheet` modal with the given route.
     mutating func presentSheet<T: Hashable>(_ route: T) where Wrapped == ModalRoute<T> {
         self = .sheet(route)

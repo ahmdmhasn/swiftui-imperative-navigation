@@ -1,79 +1,63 @@
-import SwiftUI
+// MARK: - Coordinator Protocol
 
-// MARK: - Coordinator
-
+/// Defines navigation methods to transition between views.
 @MainActor
 protocol Coordinator {
     func navigateToB()
     func navigateToC()
-    func dismissCThenPresentD()
     func navigateToRoot()
     func pop()
 }
 
 // MARK: - Default Coordinator
 
-final class DefaultCoordinator: RoutableCoordinator {
-    enum Route: Hashable {
-        case viewB
-        case viewC
-        case viewD
-        case viewE
-    }
-    
-    @Published
-    var path: [Route] = []
-    
-    @Published
-    var modal: ModalRoute<Route>?
-    
-    @ViewBuilder
-    func view(for route: Route) -> some View {
-        switch route {
-            case .viewB:
-                ViewB(coordinator: self)
-            case .viewC:
-                ViewC(coordinator: self)
-            case .viewD:
-                ViewD()
-            case .viewE:
-                ViewE(coordinator: self)
-        }
-    }
+@MainActor
+final class DefaultCoordinator {
+    let navigationController = NavigationController()
 }
 
 extension DefaultCoordinator: Coordinator {
     func pop() {
-        path.popLast()
+        navigationController.pop()
     }
     
+    
+    /// Pushes `ViewB` onto the navigation stack.
     func navigateToB() {
-        path.append(.viewB)
+        navigationController.push(ViewB(coordinator: self))
     }
     
+    /// Presents `ViewC` in a modal sheet and handles dismissal logic.
     func navigateToC() {
-        modal.presentSheet(.viewC)
+        var coordinatorC: DefaultCoordinatorC?
+        coordinatorC = DefaultCoordinatorC { [weak self] in
+            self?.navigationController.dismiss()
+            self?.presentDThenE()
+            coordinatorC = nil
+        }
+
+        coordinatorC?.start(from: navigationController)
     }
     
-    func dismissCThenPresentD() {
+    /// Pops back to the root view in the navigation stack.
+    func navigateToRoot() {
+        navigationController.popToRoot()
+    }
+    
+    // MARK: - Private Methods
+    
+    /// Handles sequential navigation steps after `ViewC` is dismissed.
+    private func presentDThenE() {
         Task {
-            modal.dismiss()
-            
-            // Wait for user action...
+            // Simulating delay to mimic user interaction or processing time.
             try? await Task.sleep(for: .seconds(1))
             
-            modal.presentFullScreen(.viewD)
+            navigationController.present(ViewD())
             
-            // Wait for user action...
             try? await Task.sleep(for: .seconds(2))
             
-            modal.dismiss()
-            
-            path.append(.viewE)
+            navigationController.dismiss()
+            navigationController.push(ViewE(coordinator: self))
         }
-    }
-    
-    func navigateToRoot() {
-        path.removeAll()
     }
 }
