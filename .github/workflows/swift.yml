@@ -15,7 +15,6 @@ jobs:
       matrix:
         platforms: [
           'generic/platform=ios',
-          'platform=macos',
           'generic/platform=tvos',
           'generic/platform=watchos',
           'generic/platform=visionos'
