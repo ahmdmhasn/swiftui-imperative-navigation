@@ -8,7 +8,7 @@ on:
   pull_request:
 
 jobs:
-  xcodebuild-16:
+  build-xcode-16:
     name: Build with xcodebuild on Xcode 16.1
     runs-on: macos-14
     strategy:
@@ -28,7 +28,7 @@ jobs:
       - name: Build Framework
         run: xcrun xcodebuild build -scheme ImperativeNavigation -destination ${{ matrix.platforms }}
 
-  example-package-integration-16:
+  test-example-project-16:
     name: Build Package Integration on Xcode 16.1
     runs-on: macos-14
     steps:
@@ -37,4 +37,4 @@ jobs:
       - name: Select Xcode Version
         run: sudo xcode-select --switch /Applications/Xcode_16.1.app/Contents/Developer
       - name: Build Package Integration
-        run: xcrun swift build --package-path Example/ImperativeNavigationExample --destination generic/platform=ios
+        run: xcodebuild test -project Example/ImperativeNavigationExample.xcodeproj -scheme ImperativeNavigationExample -destination "platform=iOS Simulator,name=iPhone 16"
