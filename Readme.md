@@ -1,5 +1,8 @@
 # SwiftUI Imperative Navigation
 
+[![CI Status](https://img.shields.io/github/actions/workflow/status/ahmdmhasn/swiftui-imperative-navigation/ci.yml?branch=main)](https://github.com/ahmdmhasn/swiftui-imperative-navigation/actions?query=workflow%3ACI+branch%3Amain)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://spdx.org/licenses/MIT.html)
+
 A modern approach to handling navigation in SwiftUI using an imperative style. This method simplifies view logic by extracting navigation concerns, improving testability, and making the codebase more maintainable.
 
 Medium Article: [Link](https://medium.com/@ahmdmhasn/mastering-imperative-navigation-in-swiftui-with-a-coordinator-pattern-8a7e034b242d)
