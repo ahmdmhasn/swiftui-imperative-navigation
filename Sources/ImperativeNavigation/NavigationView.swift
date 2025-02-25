@@ -56,7 +56,7 @@ public final class NavigationController: ObservableObject {
 /// using a coordinator pattern. It utilizes a `NavigationStack` for navigation and
 /// supports both `fullScreenCover` and `sheet` modals.
 public struct NavigationView<Root: View>: View {
-    @StateObject
+    @ObservedObject
     private var controller: NavigationController
     private let root: Root
 
@@ -69,7 +69,7 @@ public struct NavigationView<Root: View>: View {
         controller: NavigationController,
         @ViewBuilder root: () -> Root
     ) {
-        self._controller = StateObject(wrappedValue: controller)
+        self._controller = ObservedObject(wrappedValue: controller)
         self.root = root()
     }
 
