@@ -2,6 +2,8 @@
 
 [![CI Status](https://img.shields.io/github/actions/workflow/status/ahmdmhasn/swiftui-imperative-navigation/ci.yml?branch=main)](https://github.com/ahmdmhasn/swiftui-imperative-navigation/actions?query=workflow%3ACI+branch%3Amain)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://spdx.org/licenses/MIT.html)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fahmdmhasn%2Fswiftui-imperative-navigation%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/ahmdmhasn/swiftui-imperative-navigation)
+[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fahmdmhasn%2Fswiftui-imperative-navigation%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/ahmdmhasn/swiftui-imperative-navigation)
 
 A modern approach to handling navigation in SwiftUI using an imperative style. This method simplifies view logic by extracting navigation concerns, improving testability, and making the codebase more maintainable.
 
@@ -76,6 +78,7 @@ struct NavigationView<Root: View>: View {
 ```
 
 ## 📖 Usage
+### 1️⃣ Define a Coordinator
 ```swift
 @MainActor
 final class DefaultCoordinator {
@@ -95,7 +98,7 @@ final class DefaultCoordinator {
 }
 ```
 
-### 3️2️⃣  Navigate Imperatively
+### 2️⃣ Navigate imperatively from the View, ViewModel, or whatever! 
 ```swift
 struct HomeView: View {
     let coordinator: Coordinator
