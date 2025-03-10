@@ -20,7 +20,7 @@ public final class NavigationController: ObservableObject {
     ///
     /// Note: Overloaded version of `pop()` which avoids "Generic parameter 'V' could not be inferred" error.
     public func pop<V: View>() -> V? {
-        path.popLast()?.view as? V
+        path.popLast()?.body as? V
     }
 
     /// Removes all routes from the navigation path except for the root route.
@@ -44,10 +44,10 @@ public final class NavigationController: ObservableObject {
     }
 
     /// The current navigation path represented as an array of routes.
-    @Published fileprivate var path: [Route] = []
+    @Published public fileprivate(set) var path: [Route] = []
 
     /// The currently active modal presentation, if any.
-    @Published fileprivate var modal: ModalRoute<Route>?
+    @Published public fileprivate(set) var modal: ModalRoute<Route>?
 }
 
 // MARK: - Navigation View
@@ -56,7 +56,7 @@ public final class NavigationController: ObservableObject {
 /// using a coordinator pattern. It utilizes a `NavigationStack` for navigation and
 /// supports both `fullScreenCover` and `sheet` modals.
 public struct NavigationView<Root: View>: View {
-    @StateObject
+    @ObservedObject
     private var controller: NavigationController
     private let root: Root
 
@@ -69,7 +69,7 @@ public struct NavigationView<Root: View>: View {
         controller: NavigationController,
         @ViewBuilder root: () -> Root
     ) {
-        self._controller = StateObject(wrappedValue: controller)
+        self._controller = ObservedObject(wrappedValue: controller)
         self.root = root()
     }
 
@@ -78,20 +78,23 @@ public struct NavigationView<Root: View>: View {
             path: $controller.path,
             root: {
                 root
-                    .navigationDestination(for: Route.self, destination: \.body)
+                    .navigationDestination(
+                        for: Route.self,
+                        destination: { AnyView($0.body) }
+                    )
                     .fullScreenCover(
                         item: Binding(
                             get: { controller.modal?.asFullScreen() },
                             set: { controller.modal = $0 }
                         ),
-                        content: \.route.body
+                        content: { AnyView($0.route.body) }
                     )
                     .sheet(
                         item: Binding(
                             get: { controller.modal?.asSheet() },
                             set: { controller.modal = $0 }
                         ),
-                        content: \.route.body
+                        content: { AnyView($0.route.body) }
                     )
             }
         )
@@ -100,38 +103,33 @@ public struct NavigationView<Root: View>: View {
 
 // MARK: - Route
 
-private struct Route: View {
-    @MainActor
-    var body: some View {
-        AnyView(erasing: view)
+public struct Route {
+    init<Content: View>(_ body: Content) {
+        self.body = body // Store same view for later casting.
+        self.viewType = String(describing: Content.self) // Keep the view name for reference.
+        self.identifier = UUID() // Each route should be unique.
     }
 
-    init<V: View>(_ view: V) {
-        self.view = view
-        self.viewType = String(describing: V.self)
-        self.identifier = UUID()
-    }
-
-    let view: any View
-    let viewType: String
-    let identifier: UUID
+    public let body: any View
+    private let viewType: String
+    private let identifier: UUID
 }
 
 // MARK: Route + Hashable Conformance
 
-extension Route: @preconcurrency Hashable {
-    func hash(into hasher: inout Hasher) {
+extension Route: Hashable {
+    public func hash(into hasher: inout Hasher) {
         hasher.combine(viewType)
         hasher.combine(identifier)
     }
 
-    static func == (lhs: Self, rhs: Self) -> Bool {
+    public static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.viewType == rhs.viewType && lhs.identifier == rhs.identifier
     }
 }
 
 // MARK: Route + Hashable Conformance
 
-extension Route: @preconcurrency Identifiable {
-    var id: Int { hashValue }
+extension Route: Identifiable {
+    public var id: Int { hashValue }
 }
