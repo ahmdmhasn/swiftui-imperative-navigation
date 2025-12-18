@@ -47,16 +47,8 @@ public final class NavigationController: ObservableObject {
     }
 
     /// The currently active modal presentation, if any.
-    /// Returns a `ModalRoute` wrapper around the active modal (either full screen or sheet).
-    public var modal: ModalRoute<Route>? {
-        if let fullScreenRoute {
-            return .fullScreen(fullScreenRoute)
-        }
-        if let sheetRoute {
-            return .sheet(sheetRoute)
-        }
-        return nil
-    }
+    /// Returns a `Route` wrapper around the active modal (either full screen or sheet).
+    public var modal: Route? { fullScreenRoute ?? sheetRoute }
 
     /// The current navigation path represented as an array of routes.
     @Published fileprivate(set) var path: [Route] = []
