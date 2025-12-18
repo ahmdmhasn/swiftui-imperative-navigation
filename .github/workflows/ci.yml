@@ -35,8 +35,12 @@ jobs:
         uses: actions/checkout@v4
       - name: Select Xcode Version
         run: sudo xcode-select --switch /Applications/Xcode_26.2.app/Contents/Developer
-      - name: Run Unit Tests
-        run: swift test --filter ImperativeNavigationTests
+      - name: Run Unit Tests on iOS Simulator
+        run: |
+          xcodebuild test \
+            -scheme ImperativeNavigation \
+            -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=26.2' \
+            -only-testing ImperativeNavigationTests
 
   test-integration:
     name: Run Integration Tests
@@ -46,5 +50,9 @@ jobs:
         uses: actions/checkout@v4
       - name: Select Xcode Version
         run: sudo xcode-select --switch /Applications/Xcode_26.2.app/Contents/Developer
-      - name: Run Integration Tests
-        run: swift test --filter ImperativeNavigationIntegrationTests
+      - name: Run Integration Tests on iOS Simulator
+        run: |
+          xcodebuild test \
+            -scheme ImperativeNavigation \
+            -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=26.2' \
+            -only-testing ImperativeNavigationIntegrationTests
