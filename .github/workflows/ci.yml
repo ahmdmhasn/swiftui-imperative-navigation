@@ -26,3 +26,25 @@ jobs:
         run: sudo xcode-select --switch /Applications/Xcode_26.2.app/Contents/Developer
       - name: Build Framework
         run: xcrun xcodebuild build -scheme ImperativeNavigation -destination ${{ matrix.platforms }}
+
+  test-unit:
+    name: Run Unit Tests
+    runs-on: macos-26
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+      - name: Select Xcode Version
+        run: sudo xcode-select --switch /Applications/Xcode_26.2.app/Contents/Developer
+      - name: Run Unit Tests
+        run: swift test --filter ImperativeNavigationTests
+
+  test-integration:
+    name: Run Integration Tests
+    runs-on: macos-26
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+      - name: Select Xcode Version
+        run: sudo xcode-select --switch /Applications/Xcode_26.2.app/Contents/Developer
+      - name: Run Integration Tests
+        run: swift test --filter ImperativeNavigationIntegrationTests

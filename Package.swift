@@ -34,5 +34,12 @@ let package = Package(
                 .swiftLanguageMode(.v6)
             ]
         ),
+        .testTarget(
+            name: "ImperativeNavigationIntegrationTests",
+            dependencies: ["ImperativeNavigation"],
+            swiftSettings: [
+                .swiftLanguageMode(.v6)
+            ]
+        ),
     ]
 )
