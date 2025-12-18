@@ -30,24 +30,34 @@ public final class NavigationController: ObservableObject {
 
     /// Presents a modal route.
     public func present<V: View>(_ view: V) {
-        modal = .fullScreen(Route(view))
+        fullScreenRoute = Route(view)
+        sheetRoute = nil
     }
 
     /// Presents a modal route.
     public func sheet<V: View>(_ view: V) {
-        modal = .sheet(Route(view))
+        fullScreenRoute = nil
+        sheetRoute = Route(view)
     }
 
     /// Dismisses the currently presented modal route, if any.
     public func dismiss() {
-        modal = nil
+        fullScreenRoute = nil
+        sheetRoute = nil
     }
 
-    /// The current navigation path represented as an array of routes.
-    @Published public fileprivate(set) var path: [Route] = []
-
     /// The currently active modal presentation, if any.
-    @Published public fileprivate(set) var modal: ModalRoute<Route>?
+    /// Returns a `Route` wrapper around the active modal (either full screen or sheet).
+    public var modal: Route? { fullScreenRoute ?? sheetRoute }
+
+    /// The current navigation path represented as an array of routes.
+    @Published fileprivate(set) var path: [Route] = []
+
+    /// The currently active full screen modal route, if any.
+    @Published fileprivate(set) var fullScreenRoute: Route?
+
+    /// The currently active sheet modal route, if any.
+    @Published fileprivate(set) var sheetRoute: Route?
 }
 
 // MARK: - Navigation View
@@ -83,53 +93,14 @@ public struct NavigationView<Root: View>: View {
                         destination: { AnyView($0.body) }
                     )
                     .fullScreenCover(
-                        item: Binding(
-                            get: { controller.modal?.asFullScreen() },
-                            set: { controller.modal = $0 }
-                        ),
-                        content: { AnyView($0.route.body) }
+                        item: $controller.fullScreenRoute,
+                        content: { AnyView($0.body) }
                     )
                     .sheet(
-                        item: Binding(
-                            get: { controller.modal?.asSheet() },
-                            set: { controller.modal = $0 }
-                        ),
-                        content: { AnyView($0.route.body) }
+                        item: $controller.sheetRoute,
+                        content: { AnyView($0.body) }
                     )
             }
         )
     }
-}
-
-// MARK: - Route
-
-public struct Route {
-    init<Content: View>(_ body: Content) {
-        self.body = body // Store same view for later casting.
-        self.viewType = String(describing: Content.self) // Keep the view name for reference.
-        self.identifier = UUID() // Each route should be unique.
-    }
-
-    public let body: any View
-    private let viewType: String
-    private let identifier: UUID
-}
-
-// MARK: Route + Hashable Conformance
-
-extension Route: Hashable {
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(viewType)
-        hasher.combine(identifier)
-    }
-
-    public static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.viewType == rhs.viewType && lhs.identifier == rhs.identifier
-    }
-}
-
-// MARK: Route + Hashable Conformance
-
-extension Route: Identifiable {
-    public var id: Int { hashValue }
 }
