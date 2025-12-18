@@ -30,24 +30,42 @@ public final class NavigationController: ObservableObject {
 
     /// Presents a modal route.
     public func present<V: View>(_ view: V) {
-        modal = .fullScreen(Route(view))
+        fullScreenRoute = Route(view)
+        sheetRoute = nil
     }
 
     /// Presents a modal route.
     public func sheet<V: View>(_ view: V) {
-        modal = .sheet(Route(view))
+        fullScreenRoute = nil
+        sheetRoute = Route(view)
     }
 
     /// Dismisses the currently presented modal route, if any.
     public func dismiss() {
-        modal = nil
+        fullScreenRoute = nil
+        sheetRoute = nil
+    }
+
+    /// The currently active modal presentation, if any.
+    /// Returns a `ModalRoute` wrapper around the active modal (either full screen or sheet).
+    public var modal: ModalRoute<Route>? {
+        if let fullScreenRoute {
+            return .fullScreen(fullScreenRoute)
+        }
+        if let sheetRoute {
+            return .sheet(sheetRoute)
+        }
+        return nil
     }
 
     /// The current navigation path represented as an array of routes.
-    @Published public fileprivate(set) var path: [Route] = []
+    @Published fileprivate(set) var path: [Route] = []
 
-    /// The currently active modal presentation, if any.
-    @Published public fileprivate(set) var modal: ModalRoute<Route>?
+    /// The currently active full screen modal route, if any.
+    @Published fileprivate(set) var fullScreenRoute: Route?
+
+    /// The currently active sheet modal route, if any.
+    @Published fileprivate(set) var sheetRoute: Route?
 }
 
 // MARK: - Navigation View
@@ -83,18 +101,12 @@ public struct NavigationView<Root: View>: View {
                         destination: { AnyView($0.body) }
                     )
                     .fullScreenCover(
-                        item: Binding(
-                            get: { controller.modal?.asFullScreen() },
-                            set: { controller.modal = $0 }
-                        ),
-                        content: { AnyView($0.route.body) }
+                        item: $controller.fullScreenRoute,
+                        content: { AnyView($0.body) }
                     )
                     .sheet(
-                        item: Binding(
-                            get: { controller.modal?.asSheet() },
-                            set: { controller.modal = $0 }
-                        ),
-                        content: { AnyView($0.route.body) }
+                        item: $controller.sheetRoute,
+                        content: { AnyView($0.body) }
                     )
             }
         )
