@@ -2,125 +2,226 @@
 
 [![CI Status](https://img.shields.io/github/actions/workflow/status/ahmdmhasn/swiftui-imperative-navigation/ci.yml?branch=main)](https://github.com/ahmdmhasn/swiftui-imperative-navigation/actions?query=workflow%3ACI+branch%3Amain)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://spdx.org/licenses/MIT.html)
-[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fahmdmhasn%2Fswiftui-imperative-navigation%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/ahmdmhasn/swiftui-imperative-navigation)
-[![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fahmdmhasn%2Fswiftui-imperative-navigation%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/ahmdmhasn/swiftui-imperative-navigation)
+[![Swift Version](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fahmdmhasn%2Fswiftui-imperative-navigation%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/ahmdmhasn/swiftui-imperative-navigation)
+[![Platforms](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fahmdmhasn%2Fswiftui-imperative-navigation%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/ahmdmhasn/swiftui-imperative-navigation)
 
-A modern approach to handling navigation in SwiftUI using an imperative style. This method simplifies view logic by extracting navigation concerns, improving testability, and making the codebase more maintainable.
+A powerful and lightweight Swift package for managing navigation in SwiftUI apps using an imperative, coordinator-based approach. Build complex navigation flows with clean, testable, and maintainable code.
 
-Medium Article: [Link](https://medium.com/@ahmdmhasn/mastering-imperative-navigation-in-swiftui-with-a-coordinator-pattern-8a7e034b242d)
+📖 **[Read the full article on Medium](https://medium.com/@ahmdmhasn/mastering-imperative-navigation-in-swiftui-with-a-coordinator-pattern-8a7e034b242d)**
+
+## ✨ Features
+
+- 🎯 **Imperative Navigation API** - Control navigation programmatically from coordinators or view models
+- 📱 **Multiple Presentation Styles** - Support for push, sheet, and full-screen cover presentations
+- 🏗️ **Coordinator Pattern** - Decouple navigation logic from views for better architecture
+- ✅ **Type-Safe** - Compile-time safety for navigation parameters
+- 🧪 **Testable** - Mock coordinators and test navigation flows easily
+- 🔄 **State Management** - Share state across navigation flows seamlessly
+- 📦 **Lightweight** - Minimal dependencies, just SwiftUI
 
 ## 📌 Why Imperative Navigation?
-While SwiftUI promotes declarative navigation with `NavigationStack` and `NavigationLink`, complex navigation flows can become difficult to manage. Imperative navigation allows:
-- **Decoupling navigation logic** from views.
-- **Better testability** by moving navigation handling to a dedicated coordinator.
-- **Improved maintainability** by centralizing navigation in a single source of truth.
 
-## 🚀 Features
-- Navigation managed outside of views.
-- Supports deep linking and complex navigation flows.
-- Clean and structured architecture using a navigation coordinator.
+While SwiftUI promotes declarative navigation with `NavigationStack` and `NavigationLink`, complex navigation flows can become challenging to manage. Imperative navigation offers:
+
+- ✅ **Separation of Concerns** - Navigation logic lives outside of views
+- ✅ **Enhanced Testability** - Test navigation flows independently from UI
+- ✅ **Complex Flows Made Simple** - Handle multi-step processes, conditional navigation, and dynamic routing
+- ✅ **Single Source of Truth** - Centralized navigation state management
+- ✅ **Better Code Organization** - Clear responsibility boundaries between views and navigation
 
 ## 🏞️ Screenshot
 
 <img src="Screenshots/Sample.gif"/>
 
-## 🛠 Setup
-### Requirements
-- iOS 16.0+
-- Xcode 15+
-- Swift 5.9+
+## 📦 Installation
 
-### Installation
-Clone the repository:
-```sh
-git clone https://github.com/ahmdmhasn/swiftui-imperative-navigation.git
-cd swiftui-imperative-navigation
+### Swift Package Manager
+
+Add the package to your project using Xcode:
+
+1. File → Add Package Dependencies
+2. Enter the repository URL:
+   ```
+   https://github.com/ahmdmhasn/swiftui-imperative-navigation.git
+   ```
+3. Select the version and add to your target
+
+Or add it to your `Package.swift`:
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/ahmdmhasn/swiftui-imperative-navigation.git", from: "1.0.0")
+]
 ```
-Open `SwiftUIImperativeNavigation.xcodeproj` in Xcode and run the sample project.
 
-## 📖 Components
-### NavigationView
-The `NavigationCoordinator` acts as the central controller for handling navigation events.
+### Requirements
+
+- iOS 16.0+ / watchOS 9.0+ / tvOS 16.0+ / visionOS 1.0+
+- Xcode 16.0+
+- Swift 6.0+
+
+## 🚀 Quick Start
+
+### 1. Create a Navigation Controller
+
+```swift
+@MainActor
+final class AppCoordinator {
+    let navigationController = NavigationController()
+
+    func showDetail(_ item: Item) {
+        navigationController.push(DetailView(item: item))
+    }
+
+    func showSettings() {
+        navigationController.sheet(SettingsView())
+    }
+
+    func showConfirmation() {
+        navigationController.present(ConfirmationView())
+    }
+}
+```
+
+### 2. Set Up Your Root View
+
+```swift
+@main
+struct MyApp: App {
+    @StateObject private var coordinator = AppCoordinator()
+
+    var body: some Scene {
+        WindowGroup {
+            NavigationView(
+                controller: coordinator.navigationController,
+                root: {
+                    HomeView(coordinator: coordinator)
+                }
+            )
+        }
+    }
+}
+```
+
+### 3. Navigate From Your Views
+
+```swift
+struct HomeView: View {
+    let coordinator: AppCoordinator
+
+    var body: some View {
+        VStack {
+            Button("Show Detail") {
+                coordinator.showDetail(selectedItem)
+            }
+
+            Button("Show Settings") {
+                coordinator.showSettings()
+            }
+        }
+    }
+}
+```
+
+## 📖 API Reference
+
+### NavigationController
+
+The central controller for managing navigation:
 
 ```swift
 @MainActor
 public final class NavigationController: ObservableObject {
-    func push<V: View>(_ view: V)
+    // Push a view onto the navigation stack
+    public func push<V: View>(_ view: V)
 
-    func pop()
+    // Pop the top view from the stack
+    public func pop()
 
-    func popToRoot()
+    // Pop all views and return to root
+    public func popToRoot()
 
-    func present<V: View>(_ view: V)
+    // Present a view as a full-screen cover
+    public func present<V: View>(_ view: V)
 
-    func sheet<V: View>(_ view: V)
+    // Present a view as a sheet modal
+    public func sheet<V: View>(_ view: V)
 
-    func dismiss()
+    // Dismiss the current modal (sheet or full-screen)
+    public func dismiss()
 }
 ```
 
-### NavigationView
-The `NavigationView` works with the `NavigationController`.
+## 💡 Example App
 
-```swift
-struct NavigationView<Root: View>: View {
-    ...
+Check out the comprehensive [example app](./Example) included in the repository. It demonstrates:
 
-    var body: some View {
-        NavigationStack(path: $controller.path) {
-            root
-                .navigationDestination(for: Route.self, destination: \.body)
-                .fullScreenCover(item: $controller.modal, content: \.route.body)
-                .sheet(item: $controller.modal, content: \.route.body)
-        }
-    }
-}
-```
+- 🛒 E-commerce shopping flow with product catalog
+- 📦 Product details with reviews and ratings
+- 🛍️ Shopping cart with sheet presentation
+- 💳 Multi-step checkout process
+- ✅ Order confirmation with full-screen cover
+- 🔄 Complex navigation flows and state management
 
-## 📖 Usage
-### 1️⃣ Define a Coordinator
+[View the example code →](./Example/README.md)
+
+## 🧪 Testing
+
+The package includes comprehensive unit tests for the navigation controller. The coordinator pattern makes your navigation logic highly testable:
+
 ```swift
 @MainActor
-final class DefaultCoordinator {
-    let navigationController = NavigationController()
+final class MockAppCoordinator: AppCoordinator {
+    var didShowDetail = false
+    var didShowSettings = false
 
-    func navigateToB() {
-        navigationController.push(ViewB(coordinator: self)) // Push SwiftUI.View
+    override func showDetail(_ item: Item) {
+        didShowDetail = true
     }
 
-    func navigateToC() {
-        let coordinatorC = DefaultCoordinatorC { [weak self] in
-            self?.navigationController.dismiss() // Dismiss presented modal
-        }
-
-        coordinatorC.start(from: navigationController) // Present coordinator
+    override func showSettings() {
+        didShowSettings = true
     }
 }
-```
 
-### 2️⃣ Navigate imperatively from the View, ViewModel, or whatever! 
-```swift
-struct HomeView: View {
-    let coordinator: Coordinator
-    
-    var body: some View {
-        Button("Go to Details") {
-            coordinator.navigateToB()
-        }
-    }
+// Test your view models or coordinators
+func testNavigation() {
+    let coordinator = MockCoordinator()
+    coordinator.showDetail(item)
+    XCTAssertTrue(coordinator.didShowDetail)
 }
 ```
-
-## 🏗 Future Improvements
-- Add unit tests for navigation logic.
-- Extend examples for more navigation patterns (modals, tab-based navigation).
-- Provide better state persistence handling.
 
 ## 🤝 Contributing
-Contributions are welcome! Feel free to open an issue or submit a pull request.
+
+Contributions are welcome! Here's how you can help:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+Please read our [contribution guidelines](CONTRIBUTING.md) before submitting a PR.
 
 ## 📜 License
+
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
+## 👨‍💻 Author
+
+**Ahmed M. Hassan**
+- GitHub: [@ahmdmhasn](https://github.com/ahmdmhasn)
+- Medium: [@ahmdmhasn](https://medium.com/@ahmdmhasn)
+
 ## 🌟 Support
-If you find this project helpful, give it a ⭐ on GitHub!
+
+If you find this project helpful:
+- ⭐ Star the repository
+- 🐦 Share on social media
+- 📝 Write about it
+- 💬 Provide feedback and suggestions
+
+## 🙏 Acknowledgments
+
+Thanks to the SwiftUI community for inspiration and feedback on navigation patterns.
