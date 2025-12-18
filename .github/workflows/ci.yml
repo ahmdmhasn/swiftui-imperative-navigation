@@ -26,3 +26,17 @@ jobs:
         run: sudo xcode-select --switch /Applications/Xcode_26.2.app/Contents/Developer
       - name: Build Framework
         run: xcrun xcodebuild build -scheme ImperativeNavigation -destination ${{ matrix.platforms }}
+
+  test-unit:
+    name: Run Unit & Integration Tests
+    runs-on: macos-26
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+      - name: Select Xcode Version
+        run: sudo xcode-select --switch /Applications/Xcode_26.2.app/Contents/Developer
+      - name: Run Unit Tests on iOS Simulator
+        run: |
+          xcodebuild test \
+            -scheme ImperativeNavigation \
+            -destination 'platform=iOS Simulator,name=iPhone 17,OS=26.2'

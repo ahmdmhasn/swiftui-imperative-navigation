@@ -10,7 +10,7 @@ public struct Route {
         self.identifier = UUID() // Each route should be unique.
     }
 
-    let body: View
+    let body: any View
     private let viewType: String
     private let identifier: UUID
 }
