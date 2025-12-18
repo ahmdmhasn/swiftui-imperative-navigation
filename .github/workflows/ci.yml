@@ -39,7 +39,7 @@ jobs:
         run: |
           xcodebuild test \
             -scheme ImperativeNavigation \
-            -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=26.2' \
+            -destination 'platform=iOS Simulator,name=iPhone 17,OS=26.2' \
             -only-testing ImperativeNavigationTests
 
   test-integration:
@@ -54,5 +54,5 @@ jobs:
         run: |
           xcodebuild test \
             -scheme ImperativeNavigation \
-            -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=26.2' \
+            -destination 'platform=iOS Simulator,name=iPhone 17,OS=26.2' \
             -only-testing ImperativeNavigationIntegrationTests
